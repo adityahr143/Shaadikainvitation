@@ -292,3 +292,47 @@ eventCards.forEach(function (card) {
 
 });
 
+/* =========================================
+   ADD PHOTOS TO EVENT CARDS
+========================================= */
+
+const eventImages = {
+    Mandap: "image/mandap.jpg",
+    Haldi: "image/haldi.jpg",
+    Mehndi: "image/mehndi.jpg",
+    Wedding: "image/wedding.jpg"
+};
+
+document.querySelectorAll(".event-card").forEach(function(card) {
+
+    const titleElement = card.querySelector(".event-content h3");
+
+    if (!titleElement) return;
+
+    const eventName = titleElement.textContent.trim();
+    const imagePath = eventImages[eventName];
+
+    if (!imagePath) return;
+
+    const eventContent = card.querySelector(".event-content");
+
+    if (!eventContent) return;
+
+    if (eventContent.querySelector(".event-photo-wrapper")) return;
+
+    const photoWrapper = document.createElement("div");
+    photoWrapper.className = "event-photo-wrapper";
+
+    const eventImage = document.createElement("img");
+
+    eventImage.src = imagePath;
+    eventImage.alt = eventName + " Event";
+
+    photoWrapper.appendChild(eventImage);
+
+    eventContent.insertBefore(
+        photoWrapper,
+        eventContent.firstChild
+    );
+
+});
